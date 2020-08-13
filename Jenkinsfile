@@ -20,9 +20,11 @@ pipeline {
 						if [ -e build ]; then
 							rm -rf build
 						fi
-						mkdir bin
-						curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > ./bin/repo
-						chmod a+x ./bin/repo
+						if [ ! -e $WORKSPACE/bin ]; then
+							mkdir bin
+							curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > ./bin/repo
+							echo test | sudo chmod a+x ./bin/repo
+						fi
 
 						./bin/repo init -u https://testlab2:Labrat1@bitbucket.analog.com/scm/dte/lnxdsp-repo-manifest.git -b $manifest_branch
 						./bin/repo sync -f
