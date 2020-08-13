@@ -11,6 +11,7 @@ pipeline {
 						export manifest_branch="release/yocto-1.0.0"
 						export meta_adi_branch="release/yocto-1.0.0"
 						export kernel_branch="release/yocto-1.0.0"
+						export script_branch=${GIT_BRANCH}
 						export uboot_branch="release/yocto-1.0.0"
 
 						cd $WORKSPACE
@@ -32,7 +33,7 @@ pipeline {
 
 						remotename=adibitbucket
 						cd $WORKSPACE/sources;
-						git remote add $remotename https://bitbucket.analog.com/scm/dte/lnxdsp-scripts.git;git remote remove adigithub;git remote update;git checkout ${GIT_BRANCH}
+						git remote add $remotename https://bitbucket.analog.com/scm/dte/lnxdsp-scripts.git;git remote remove adigithub;git remote update;git checkout ${script_branch}
 						cd $WORKSPACE/sources/meta-adi;
 						git remote add $remotename https://bitbucket.analog.com/scm/dte/lnxdsp-adi-meta.git; git remote remove adigithub;git remote update;git checkout $meta_adi_branch
 
@@ -72,7 +73,7 @@ pipeline {
 					sh '''
 						cd $WORKSPACE/sources/load-uboot-kernel
 						cp ~/PW_RESET.CFG ./PW_RESET.CFG 
-						echo test | sudo -S python3 LUK.py -b nfsboot -m adsp-sc573-ezkit --ipaddr 10.100.4.50 --serverip 10.100.4.174 -f $WORKSPACE/build/tmp/deploy/images/adsp-sc573-ezkit --updateUboot -e 2000
+						echo test | sudo -S python3 LUK.py -b nfsboot -m adsp-sc573-ezkit --ipaddr 10.100.4.50 --serverip 10.100.4.174 -f $WORKSPACE/build/tmp/deploy/images/adsp-sc573-ezkit --updateUboot -e 1000
 						'''
 					sh '''
 						cd $WORKSPACE/sources/load-uboot-kernel
@@ -80,7 +81,7 @@ pipeline {
 						'''
 					sh '''
 						cd $WORKSPACE/sources/load-uboot-kernel
-						echo test | sudo -S python3 LUK.py -m adsp-sc573-ezkit --updateUboot -e 2000 --ipaddr 10.100.4.50 --serverip 10.100.4.174
+						echo test | sudo -S python3 LUK.py -m adsp-sc573-ezkit --updateUboot -e 1000 --ipaddr 10.100.4.50 --serverip 10.100.4.174
 						'''
 				}
         }
