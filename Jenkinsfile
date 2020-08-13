@@ -40,9 +40,6 @@ pipeline {
 
 						# ########### Update the local.conf file ###########
 
-						ln -s ~/workspace/downloads $WORKSPACE/downloads
-						ln -s ~/workspace/sstate-cache $WORKSPACE/sstate-cache
-
 						chmod a+x $WORKSPACE
 						cd $WORKSPACE/sources/base/$MACHINE
 						# update repo URI
