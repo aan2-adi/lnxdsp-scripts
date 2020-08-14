@@ -8,11 +8,11 @@ pipeline {
 					sh  '''
 						# define the yocto releated bibucket branch
 						echo ${GIT_BRANCH}
-						export manifest_branch="release/yocto-1.0.0"
-						export meta_adi_branch="release/yocto-1.0.0"
-						export kernel_branch="release/yocto-1.0.0"
+						export manifest_branch="develop/yocto-1.0.1"
+						export meta_adi_branch="develop/yocto-1.0.1"
+						export kernel_branch="develop/yocto-1.0.1"
 						export script_branch=${GIT_BRANCH}
-						export uboot_branch="release/yocto-1.0.0"
+						export uboot_branch="develop/yocto-1.0.1"
 
 						cd $WORKSPACE
 						if [ -e sources ]; then
