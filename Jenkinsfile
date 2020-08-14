@@ -37,9 +37,9 @@ pipeline {
 
 						remotename=adibitbucket
 						cd $WORKSPACE/sources;
-						git remote add $remotename https://bitbucket.analog.com/scm/dte/lnxdsp-scripts.git;git remote remove adigithub;git remote update;git checkout ${script_branch}
+						git remote remove adigithub;git remote update;git checkout ${script_branch}
 						cd $WORKSPACE/sources/meta-adi;
-						git remote add $remotename https://bitbucket.analog.com/scm/dte/lnxdsp-adi-meta.git; git remote remove adigithub;git remote update;git checkout ${meta_adi_branch}
+						git remote remove adigithub;git remote update;git checkout ${meta_adi_branch}
 
 
 						# ########### Update the local.conf file ###########
