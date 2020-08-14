@@ -15,8 +15,9 @@ pipeline {
 						export uboot_branch="release/yocto-1.0.0"
 
 						cd $WORKSPACE
-						rm -rf sources
-						rm -rf $test_module
+						if [ -e sources ]; then
+							rm -rf sources
+						fi
 						if [ -e build ]; then
 							rm -rf build
 						fi
