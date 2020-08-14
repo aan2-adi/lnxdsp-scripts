@@ -23,7 +23,7 @@ pipeline {
 						fi
 						if [ -e $WORKSPACE/bin ]; then
 							rm -rf bin
-							em -rf .repo
+							rm -rf .repo
 						fi
 						mkdir bin
 						curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > ./bin/repo
