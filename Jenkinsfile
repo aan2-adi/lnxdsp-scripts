@@ -56,21 +56,21 @@ pipeline {
 					sh '''
 						#!/bin/bash -ilex
 						cd $WORKSPACE
-						source setup-environment -m adsp-sc573-ezkit -b build
+						. ./setup-environment -m adsp-sc573-ezkit -b build
 						cd $WORKSPACE/build
 						bitbake u-boot-adi
 						'''
 					sh '''
 						#!/bin/bash -ilex
 						cd $WORKSPACE
-						source setup-environment -m adsp-sc573-ezkit
+						. ./setup-environment -m adsp-sc573-ezkit
 						cd $WORKSPACE/build
 						bitbake u-boot-adi
 						'''
 					sh '''
 						#!/bin/bash -ilex
 						cd $WORKSPACE
-						source setup-environment -b build
+						. ./setup-environment -b build
 						cd $WORKSPACE/build
 						bitbake u-boot-adi
 						'''
