@@ -3,7 +3,7 @@ pipeline {
 
     stages{
         stage('Rgression Tests'){
-				agent { label 'yocto-test-sc573'}
+				agent { label 'yocto-test-sc584'}
 				steps {
 					sh  '''
 						# define the yocto releated bibucket branch
@@ -73,15 +73,15 @@ pipeline {
 					sh '''
 						cd $WORKSPACE/sources/load-uboot-kernel
 						cp ~/PW_RESET.CFG ./PW_RESET.CFG 
-						echo test | sudo -S python3 LUK.py -b nfsboot -m adsp-sc573-ezkit --ipaddr 10.100.4.50 --serverip 10.100.4.174 -f //dte-shanghai/share/jenkins/app-yocto-build/u-boot/adsp-sc573-ezkit --updateUboot -e 1000
+						echo test | sudo -S python3 LUK.py -b nfsboot -m adsp-sc584-ezkit --ipaddr 10.100.4.50 --serverip 10.100.4.174 -f //dte-shanghai/share/jenkins/app-yocto-build/u-boot/adsp-sc584-ezkit --updateUboot -e 1000
 						'''
 					sh '''
 						cd $WORKSPACE/sources/load-uboot-kernel
-						echo test | sudo -S python3 LUK.py -b nfsboot -m adsp-sc573-ezkit --ipaddr 10.100.4.50 --serverip 10.100.4.174
+						echo test | sudo -S python3 LUK.py -b nfsboot -m adsp-sc584-ezkit --ipaddr 10.100.4.50 --serverip 10.100.4.174
 						'''
 					sh '''
 						cd $WORKSPACE/sources/load-uboot-kernel
-						echo test | sudo -S python3 LUK.py -m adsp-sc573-ezkit --updateUboot -e 1000 --ipaddr 10.100.4.50 --serverip 10.100.4.174
+						echo test | sudo -S python3 LUK.py -m adsp-sc584-ezkit --updateUboot -e 1000 --ipaddr 10.100.4.50 --serverip 10.100.4.174
 						'''
 				}
         }
