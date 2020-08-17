@@ -55,25 +55,31 @@ pipeline {
 					sh '''
 						cd $WORKSPACE
 						source ./setup-environment -m adsp-sc573-ezkit -b build
-						cd $WORKSPACE/build
-						bitbake u-boot-adi
+						cd $WORKSPACE/build/conf
+						if ! grep -q 'MACHINE ?= "adsp-sc573-ezkit"' local.conf; then
+							exit 1
+						fi
 						'''
 					sh '''
 						cd $WORKSPACE
-						source ./setup-environment -m adsp-sc573-ezkit
-						cd $WORKSPACE/build
-						bitbake u-boot-adi
+						source ./setup-environment -m adsp-sc584-ezkit
+						cd $WORKSPACE/build/conf
+						if ! grep -q 'MACHINE ?= "adsp-sc584-ezkit"' local.conf; then
+							exit 1
+						fi
 						'''
 					sh '''
 						cd $WORKSPACE
 						source ./setup-environment -b build
-						cd $WORKSPACE/build
-						bitbake u-boot-adi
+						cd $WORKSPACE/build/conf
+						if ! grep -q 'MACHINE ?= "adsp-sc584-ezkit"' local.conf; then
+							exit 1
+						fi
 						'''
 					sh '''
 						cd $WORKSPACE/sources/load-uboot-kernel
 						cp ~/PW_RESET.CFG ./PW_RESET.CFG 
-						echo test | sudo -S python3 LUK.py -b nfsboot -m adsp-sc573-ezkit --ipaddr 10.100.4.50 --serverip 10.100.4.174 -f $WORKSPACE/build/tmp/deploy/images/adsp-sc573-ezkit --updateUboot -e 1000
+						echo test | sudo -S python3 LUK.py -b nfsboot -m adsp-sc573-ezkit --ipaddr 10.100.4.50 --serverip 10.100.4.174 -f //dte-shanghai/share/jenkins/app-yocto-build/u-boot/adsp-sc573-ezkit --updateUboot -e 1000
 						'''
 					sh '''
 						cd $WORKSPACE/sources/load-uboot-kernel
