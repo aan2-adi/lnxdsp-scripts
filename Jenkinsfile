@@ -56,25 +56,19 @@ pipeline {
 						cd $WORKSPACE
 						source ./setup-environment -m adsp-sc573-ezkit -b build
 						cd $WORKSPACE/build/conf
-						if ! grep -q 'MACHINE ?= "adsp-sc573-ezkit"' local.conf; then
-							exit 1
-						fi
+						grep -q 'adsp-sc573-ezkit' local.conf; [ $? -eq 0 ] && echo "Pass" || exit 1
 						'''
 					sh '''
 						cd $WORKSPACE
 						source ./setup-environment -m adsp-sc584-ezkit
 						cd $WORKSPACE/build/conf
-						if ! grep -q 'MACHINE ?= "adsp-sc584-ezkit"' local.conf; then
-							exit 1
-						fi
+						grep -q 'adsp-sc584-ezkit' local.conf; [ $? -eq 0 ] && echo "Pass" || exit 1
 						'''
 					sh '''
 						cd $WORKSPACE
 						source ./setup-environment -b build
 						cd $WORKSPACE/build/conf
-						if ! grep -q 'MACHINE ?= "adsp-sc584-ezkit"' local.conf; then
-							exit 1
-						fi
+						grep -q 'adsp-sc584-ezkit' local.conf; [ $? -eq 0 ] && echo "Pass" || exit 1
 						'''
 					sh '''
 						cd $WORKSPACE/sources/load-uboot-kernel
