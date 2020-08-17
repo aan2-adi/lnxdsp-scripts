@@ -41,7 +41,6 @@ pipeline {
 						cd $WORKSPACE/sources/meta-adi;
 						git remote add $remotename https://bitbucket.analog.com/scm/dte/lnxdsp-adi-meta.git; git remote remove adigithub;git remote update;git checkout ${meta_adi_branch}
 
-
 						# ########### Update the local.conf file ###########
 
 						chmod a+x $WORKSPACE
@@ -54,39 +53,33 @@ pipeline {
 						echo 'KERNEL_BRANCH ?= "'${kernel_branch}'"'>> local.conf
 						'''
 					sh '''
-						#!/bin/bash -ilex
 						cd $WORKSPACE
-						. ./setup-environment -m adsp-sc573-ezkit -b build
+						source ./setup-environment -m adsp-sc573-ezkit -b build
 						cd $WORKSPACE/build
 						bitbake u-boot-adi
 						'''
 					sh '''
-						#!/bin/bash -ilex
 						cd $WORKSPACE
-						. ./setup-environment -m adsp-sc573-ezkit
+						source ./setup-environment -m adsp-sc573-ezkit
 						cd $WORKSPACE/build
 						bitbake u-boot-adi
 						'''
 					sh '''
-						#!/bin/bash -ilex
 						cd $WORKSPACE
-						. ./setup-environment -b build
+						source ./setup-environment -b build
 						cd $WORKSPACE/build
 						bitbake u-boot-adi
 						'''
 					sh '''
-						#!/bin/bash -ilex
 						cd $WORKSPACE/sources/load-uboot-kernel
 						cp ~/PW_RESET.CFG ./PW_RESET.CFG 
 						echo test | sudo -S python3 LUK.py -b nfsboot -m adsp-sc573-ezkit --ipaddr 10.100.4.50 --serverip 10.100.4.174 -f $WORKSPACE/build/tmp/deploy/images/adsp-sc573-ezkit --updateUboot -e 1000
 						'''
 					sh '''
-						#!/bin/bash -ilex
 						cd $WORKSPACE/sources/load-uboot-kernel
 						echo test | sudo -S python3 LUK.py -b nfsboot -m adsp-sc573-ezkit --ipaddr 10.100.4.50 --serverip 10.100.4.174
 						'''
 					sh '''
-						#!/bin/bash -ilex
 						cd $WORKSPACE/sources/load-uboot-kernel
 						echo test | sudo -S python3 LUK.py -m adsp-sc573-ezkit --updateUboot -e 1000 --ipaddr 10.100.4.50 --serverip 10.100.4.174
 						'''
