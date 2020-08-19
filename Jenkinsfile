@@ -3,7 +3,7 @@ pipeline {
 
     stages{
         stage('Rgression Tests'){
-				agent { label 'yocto-test-sc589'}
+				agent { label 'yocto-test-sc584'}
 				steps {
 					sh  '''
 						# define the yocto releated bibucket branch
