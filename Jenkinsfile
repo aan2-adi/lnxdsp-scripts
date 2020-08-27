@@ -3,9 +3,9 @@ pipeline {
 
     stages{
         stage('Rgression Tests'){
-				agent { label 'yocto-test-sc589'}
+				agent { label 'yocto-test-sc584'}
 				steps {
-					sh  '''
+					sh '''
 						# define the yocto releated bibucket branch
 						echo ${GIT_BRANCH}
 						export manifest_branch="develop/yocto-1.0.1"
@@ -53,36 +53,40 @@ pipeline {
 						echo 'KERNEL_BRANCH ?= "'${kernel_branch}'"'>> local.conf
 						'''
 					sh '''
+						#!/bin/bash
 						cd $WORKSPACE
-						. ./setup-environment -m adsp-sc573-ezkit -b build
+						source ./setup-environment -m adsp-sc573-ezkit -b build
 						cd $WORKSPACE/build/conf
 						grep -q 'adsp-sc573-ezkit' local.conf; [ $? -eq 0 ] && echo "Pass" || exit 1
 						'''
 					sh '''
+						#!/bin/bash
 						cd $WORKSPACE
-						. ./setup-environment -m adsp-sc584-ezkit
+						source ./setup-environment -m adsp-sc584-ezkit
 						cd $WORKSPACE/build/conf
 						grep -q 'adsp-sc584-ezkit' local.conf; [ $? -eq 0 ] && echo "Pass" || exit 1
 						'''
 					sh '''
+						#!/bin/bash
 						cd $WORKSPACE
-						. ./setup-environment -b build
+						source ./setup-environment -b build
 						cd $WORKSPACE/build/conf
 						grep -q 'adsp-sc584-ezkit' local.conf; [ $? -eq 0 ] && echo "Pass" || exit 1
 						'''
 					sh '''
 						cd $WORKSPACE/load-uboot-kernel
-						
+						cp ~/username.txt ./username.txt
+						cp ~/password.txt ./password.txt
 						cp ~/PW_RESET.CFG ./PW_RESET.CFG 
-						echo test | sudo -S python3 LUK.py -b nfsboot -m adsp-sc589-ezkit --ipaddr 10.100.4.50 --serverip 10.100.4.174 -f //dte-shanghai/share/jenkins/app-yocto-build/u-boot/adsp-sc589-ezkit --updateUboot -e 1000
+						echo test | sudo -S python3 LUK.py -b nfsboot -m adsp-sc584-ezkit --ipaddr 10.100.4.50 --serverip 10.100.4.174 -f //dte-shanghai/share/jenkins/app-yocto-build/u-boot/adsp-sc584-ezkit --updateUboot -e 1000
 						'''
 					sh '''
 						cd $WORKSPACE/load-uboot-kernel
-						echo test | sudo -S python3 LUK.py -b nfsboot -m adsp-sc589-ezkit --ipaddr 10.100.4.50 --serverip 10.100.4.174
+						echo test | sudo -S python3 LUK.py -b nfsboot -m adsp-sc584-ezkit --ipaddr 10.100.4.50 --serverip 10.100.4.174
 						'''
 					sh '''
 						cd $WORKSPACE/load-uboot-kernel
-						echo test | sudo -S python3 LUK.py -m adsp-sc589-ezkit --updateUboot -e 1000 --ipaddr 10.100.4.50 --serverip 10.100.4.174
+						echo test | sudo -S python3 LUK.py -m adsp-sc584-ezkit --updateUboot -e 1000 --ipaddr 10.100.4.50 --serverip 10.100.4.174
 						'''
 				}
         }

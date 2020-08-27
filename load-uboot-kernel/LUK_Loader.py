@@ -180,8 +180,9 @@ class UbootKernelLoader:
             else:
                 self.send_cmd_gdb( cmd )
             self.logOutput( self.read_until_prompt(), True )
-        time.sleep(SHORT_SLEEP_TIME)
+        #time.sleep(SHORT_SLEEP_TIME)
         self.readSerialData()
+
         if self.data: self.serial.write(b'\n\n')
         updateUbootCmd = DHCP_CMD + BOOT_CMD['update_uboot'] if self.dhcp else \
             replaceMacros([('SERVER_IP', self.serverip), ('IP_ADDR', self.ipaddr)], SET_IP) + BOOT_CMD['update_uboot']
@@ -197,6 +198,7 @@ class UbootKernelLoader:
         # check whether u-boot load successfully or not.
         time.sleep(SHORT_SLEEP_TIME)
         self.readSerialData()
+
         if UBOOT_LOAD_PASS_MSG in self.data:  
             for bt in BOOT_CMD:
                 if bt == self.bootType:
