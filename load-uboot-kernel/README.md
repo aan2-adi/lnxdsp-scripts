@@ -17,31 +17,6 @@ User just need to update the config.py file then run LUK.py, this is a better ch
 sudo python3 LUK.py
 ```
 
-### Method 2: Change Macros via options(for automation) ###
-
-Options from user have higher priority, when both options specified and macros in config.py, the tool will use options 
-and keep the config.py no change, this is a better choice when user want to load in automation testing.
-```bash
-# please provide mount username and password if you want to copy images from shared folder like //shared/folder
-echo {mount-username} >username.txt
-echo {mount-password} >password.txt
-
-# Just load with nfsboot, and no need to copy files
->sudo python3 LUK.py -b nfsboot -m adsp-sc584-ezkit --ipaddr 10.100.4.50 --serverip 10.100.4.174
-
-# No need to update uboot and load with ramboot with providing deploy folder
->sudo python3 LUK.py -b ramboot -m adsp-sc584-ezkit -f /tmp/deploy/images/adsp-sc584-ezkit
-
-# Only update uboot, not load kernel, 
->sudo python3 LUK.py -m adsp-sc584-ezkit --updateUboot -e 2000 --ipaddr 10.100.4.50 --serverip 10.100.4.174
-
-# Update uboot and load with nfsboot with providing deploy folder
->sudo python3 LUK.py -b nfsboot -m adsp-sc584-ezkit -f /tmp/deploy/images/adsp-sc584-ezkit/ --updateUboot -e 2000 --ipaddr 10.100.4.50 --serverip 10.100.4.174
-
-# Update uboot and load with nfsboot with providing deploy folder using dhcp
->sudo python3 LUK.py -b nfsboot -m adsp-sc584-ezkit -f /tmp/deploy/images/adsp-sc584-ezkit/ --updateUboot -e 2000 --dhcp
-```
-
 ### Help ###
 
 Options just provide the necesssary macros that should be changed according to different situations.
